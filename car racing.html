@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Racing Game</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-color: #333;
+            overflow: hidden;
+        }
+        .car {
+            position: absolute;
+            bottom: 20px;
+            left: calc(50% - 25px);
+            width: 50px;
+            height: 100px;
+            background-color: red;
+        }
+        .obstacle {
+            position: absolute;
+            width: 50px;
+            height: 100px;
+            background-color: blue;
+        }
+        .score {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="car" id="car"></div>
+        <div class="score" id="score">Score: 0</div>
+    </div>
+    <script>
+        const gameContainer = document.querySelector('.game-container');
+        const car = document.getElementById('car');
+        const scoreDisplay = document.getElementById('score');
+        const carWidth = 50;
+        const carHeight = 100;
+        const obstacleWidth = 50;
+        const obstacleHeight = 100;
+        let carX = gameContainer.clientWidth / 2 - carWidth / 2;
+        let carY = gameContainer.clientHeight - carHeight - 20;
+        let score = 0;
+        let gameOver = false;
+        
+        car.style.left = `${carX}px`;
+        car.style.bottom = `${carY}px`;
+        
+        document.addEventListener('keydown', (event) => {
+            if (gameOver) return;
+            if (event.key === 'ArrowLeft' && carX > 0) {
+                carX -= 10;
+            } else if (event.key === 'ArrowRight' && carX < gameContainer.clientWidth - carWidth) {
+                carX += 10;
+            }
+            car.style.left = `${carX}px`;
+        });
+
+        function createObstacle() {
+            const obstacle = document.createElement('div');
+            obstacle.classList.add('obstacle');
+            obstacle.style.left = `${Math.random() * (gameContainer.clientWidth - obstacleWidth)}px`;
+            obstacle.style.top = `-100px`;
+            gameContainer.appendChild(obstacle);
+            moveObstacle(obstacle);
+        }
+
+        function moveObstacle(obstacle) {
+            let obstacleY = -obstacleHeight;
+            const obstacleInterval = setInterval(() => {
+                if (gameOver) {
+                    clearInterval(obstacleInterval);
+                    obstacle.remove();
+                    return;
+                }
+                obstacleY += 5;
+                obstacle.style.top = `${obstacleY}px`;
+
+                if (obstacleY > gameContainer.clientHeight) {
+                    obstacle.remove();
+                    score++;
+                    scoreDisplay.innerText = `Score: ${score}`;
+                    clearInterval(obstacleInterval);
+                }
+
+                if (obstacleY + obstacleHeight > carY && obstacleY < carY + carHeight &&
+                    parseInt(obstacle.style.left) + obstacleWidth > carX &&
+                    parseInt(obstacle.style.left) < carX + carWidth) {
+                    gameOver = true;
+                    alert(`Game Over! Your score is ${score}`);
+                }
+            }, 30);
+        }
+
+        function startGame() {
+            gameOver = false;
+            score = 0;
+            scoreDisplay.innerText = `Score: ${score}`;
+            carX = gameContainer.clientWidth / 2 - carWidth / 2;
+            car.style.left = `${carX}px`;
+            setInterval(() => {
+                if (!gameOver) createObstacle();
+            }, 2000);
+        }
+
+        startGame();
+    </script>
+</body>
+</html>

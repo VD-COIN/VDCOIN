@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VD Coin Welcome Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="preview1" class="preview">
+        <div class="background-image" id="bg1"></div>
+        <h1 class="text">THIS IS VD</h1>
+    </div>
+    
+    <div id="loading" class="loading-panel">
+        <div class="background-image" id="bg-loading"></div>
+        <div class="loading-text">Loading...</div>
+    </div>
+
+    <div id="preview2" class="preview">
+        <div class="background-image" id="bg2"></div>
+        <h1 class="text">I AM VD COIN</h1>
+        <button id="okButton">OK</button>
+    </div>
+
+    <div id="welcomeNew" class="welcome">
+        <div class="background-image" id="bg-new"></div>
+        <h1>Welcome New User!</h1>
+        <audio id="newUserAudio" src="audio1.mp3"></audio>
+    </div>
+
+    <div id="welcomeReturning" class="welcome">
+        <div class="background-image" id="bg-returning"></div>
+        <h1>Welcome Back!</h1>
+        <audio id="returningUserAudio" src="audio2.mp3"></audio>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+<style>body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.preview, .loading-panel, .welcome {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+.text {
+    color: white;
+    font-size: 4vw;
+    text-align: center;
+}
+
+.loading-text {
+    color: white;
+    font-size: 3vw;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 2vw;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+#preview1 {
+    background-image: url('background1.jpg');
+}
+
+#loading {
+    background-image: url('loading1.jpg');
+}
+
+#preview2 {
+    background-image: url('background2.jpg');
+}
+
+#welcomeNew {
+    background-image: url('background3.jpg');
+}
+
+#welcomeReturning {
+    background-image: url('background4.jpg');
+}
+
+.show {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+}</style><script>/*Here write your javascript code*/
+document.addEventListener("DOMContentLoaded", function() {
+    const preview1 = document.getElementById("preview1");
+    const loading = document.getElementById("loading");
+    const preview2 = document.getElementById("preview2");
+    const welcomeNew = document.getElementById("welcomeNew");
+    const welcomeReturning = document.getElementById("welcomeReturning");
+    const okButton = document.getElementById("okButton");
+
+    preview1.classList.add("show");
+
+    setTimeout(() => {
+        preview1.classList.remove("show");
+        loading.classList.add("show");
+    }, 7000);
+
+    setTimeout(() => {
+        loading.classList.remove("show");
+        preview2.classList.add("show");
+    }, 12000);
+
+    okButton.addEventListener("click", () => {
+        preview2.classList.remove("show");
+        if (isNewUser()) {
+            welcomeNew.classList.add("show");
+            document.getElementById("newUserAudio").play();
+        } else {
+            welcomeReturning.classList.add("show");
+            document.getElementById("returningUserAudio").play();
+        }
+    });
+
+    function isNewUser() {
+        // Replace with your actual logic to check if the user is new
+        return true; // Assuming the user is new for this example
+    }
+});</script></html>

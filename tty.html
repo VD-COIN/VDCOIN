@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Preview</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+            background-image: url('background3.jpg');
+    background-size: cover; /* Ensures the background image covers the whole page */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents the background image from repeating */
+ 
+    height: 100vh; /* Ensures the body takes up the full viewport height */
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+        #content {
+            position: relative;
+        }
+        #content button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        #content button:hover {
+            background-color: #444;
+        }
+        #preview1 {
+            background-image: url('background1.jpg');
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+        }
+        #preview2 {
+            background-image: url('background2.jpg');
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+        }
+        #finalText {
+            background-image: url('background3.jpg');
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div id="preview1">
+            <h1>I AM VD</h1>
+            <button onclick="nextPreview()">NEXT</button>
+            <audio id="bgAudio1" src="audio1.mp3" autoplay loop></audio>
+        </div>
+        <div id="preview2" class="hidden">
+            <h1>JDJDJDJF CONTAIN COIND</h1>
+            <button onclick="finishPreview()">FINISH</button>
+            <audio id="bgAudio2" src="audio2.mp3" loop></audio>
+        </div>
+        <div id="finalText" class="hidden">
+            <h1>Jdjdjfjdndjxjx</h1>
+        </div>
+    </div>
+
+    <script>
+        function nextPreview() {
+            document.getElementById('preview1').classList.add('hidden');
+            document.getElementById('preview2').classList.remove('hidden');
+            document.getElementById('bgAudio1').pause();
+            document.getElementById('bgAudio2').play();
+        }
+
+        function finishPreview() {
+            document.getElementById('preview2').classList.add('hidden');
+            document.getElementById('finalText').classList.remove('hidden');
+            document.getElementById('bgAudio2').pause();
+        }
+    </script>
+</body>
+</html>
